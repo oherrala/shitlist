@@ -1,12 +1,45 @@
 
 # Sources:
 #   [1]: https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml
+#   [2]: https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
+#   [3]: https://en.wikipedia.org/wiki/Martian_packet#IPv6
 
-::1/128             # [1] Loopback Address - https://tools.ietf.org/html/rfc4291
-::ffff:0:0/96       # [1] IPv4-mapped Address - https://tools.ietf.org/html/rfc4291
+::/96               # [2] Deprecated (previously IPv4-Compatible IPv6 address) https://tools.ietf.org/html/rfc4291#section-4
+::1/128             # [1] Loopback Address - https://tools.ietf.org/html/rfc4291#section-2.5.3
+::ffff:0:0/96       # [1] IPv4-mapped Address - https://tools.ietf.org/html/rfc4291#section-2.5.5.2
 2001::/23           # [1] IETF Protocol Assignments - https://tools.ietf.org/html/rfc2928
 2001::/32           # [1] TEREDO - https://tools.ietf.org/html/rfc4380
 2001:10::/28        # [1] Deprecated (previously ORCHID) - https://tools.ietf.org/html/rfc4843
 2001:db8::/32       # [1] Documentation - https://tools.ietf.org/html/rfc3849
+
+2001::/24           # [3] Teredo mapped 0.0.0.0/8
+2001:a00::/24       # [3] Teredo mapped 10.0.0.0/8
+2001:7f00::/24      # [3] Teredo mapped 127.0.0.0/8
+2001:a9fe::/32      # [3] Teredo mapped 169.254.0.0/16
+2001:ac10::/28      # [3] Teredo mapped 172.16.0.0/12
+2001:c000::/40      # [3] Teredo mapped 192.0.0.0/24
+2001:c000:200::/40  # [3] Teredo mapped 192.0.2.0/24
+2001:c0a8::/32      # [3] Teredo mapped 192.168.0.0/16
+2001:c612::/31      # [3] Teredo mapped 198.18.0.0/15
+2001:c633:6400::/40 # [3] Teredo mapped 198.51.100.0/24
+2001:cb00:7100::/40 # [3] Teredo mapped 203.0.113.0/24
+2001:e000::/20      # [3] Teredo mapped 224.0.0.0/4
+2001:f000::/20      # [3] Teredo mapped 240.0.0.0/4
+2001:ffff:ffff::/48 # [3] Teredo mapped 255.255.255.255/32
+
+2002::/24           # [3] 6to4 mapped 0.0.0.0/8
+2002:a00::/24       # [3] 6to4 mapped 10.0.0.0/8
+2002:7f00::/24      # [3] 6to4 mapped 127.0.0.0/8
+2002:a9fe::/32      # [3] 6to4 mapped 169.254.0.0/16
+2002:ac10::/28      # [3] 6to4 mapped 172.16.0.0/12
+2002:c000::/40      # [3] 6to4 mapped 192.0.0.0/24
+2002:c000:200::/40  # [3] 6to4 mapped 192.0.2.0/24
+2002:c0a8::/32      # [3] 6to4 mapped 192.168.0.0/16
+2002:c612::/31      # [3] 6to4 mapped 198.18.0.0/15
+2002:c633:6400::/40 # [3] 6to4 mapped 198.51.100.0/24
+2002:cb00:7100::/40 # [3] 6to4 mapped 203.0.113.0/24
+2002:e000::/20      # [3] 6to4 mapped 224.0.0.0/4
+2002:f000::/20      # [3] 6to4 mapped 240.0.0.0/4
+2002:ffff:ffff::/48 # [3] 6to4 mapped 255.255.255.255/32
 
 #                   # comments indended to column 20

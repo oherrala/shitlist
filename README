@@ -1,0 +1,61 @@
+
+Data is divided into three files according to IANA IPv6
+Special-Purpose Address Registry
+
+https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml
+
+ * ipv6-not-valid-source.txt (IANA Source column is False)
+
+   Address from the allocated special-purpose address block is _not_
+   valid when used as the source address of an IP datagram that
+   transits two devices.
+
+ * ipv6-not-valid-destination.txt (IANA Destination column is False)
+
+   Address from the allocated special-purpose address block is _not_
+   valid when used as the destination address of an IP datagram that
+   transits two devices.
+
+ * ipv6-not-forwardable.txt (IANA Forwardable or Global column is False)
+
+   A router may _not_ forward an IP datagram whose destination address
+   is drawn from the allocated special-purpose address block between
+   external interfaces.
+
+   IP datagram whose destination address is drawn from the allocated
+   special-purpose address block is _not_ forwardable beyond a
+   specified administrative domain.
+
+
+Example for OpenBSD's pf:
+
+  # mkdir /etc/pf.d
+  # cd /etc/pf.d/
+  # git clone https://github.com/oherrala/shitlist
+
+  Then example rules into /etc/pf.conf:
+
+    table <ipv4-not-forwardable>       persist file "/etc/pf.d/shitlist/ipv4/ipv4-not-forwardable.txt"
+    table <ipv4-not-valid-destination> persist file "/etc/pf.d/shitlist/ipv4/ipv4-not-valid-destination.txt"
+    table <ipv4-not-valid-source>      persist file "/etc/pf.d/shitlist/ipv4/ipv4-not-valid-source.txt"
+    table <ipv6-not-forwardable>       persist file "/etc/pf.d/shitlist/ipv6/ipv6-not-forwardable.txt"
+    table <ipv6-not-valid-destination> persist file "/etc/pf.d/shitlist/ipv6/ipv6-not-valid-destination.txt"
+    table <ipv6-not-valid-source>      persist file "/etc/pf.d/shitlist/ipv6/ipv6-not-valid-source.txt"
+
+    # Tag traffic inside internal network
+    match on $int_if from $int_if:network tag INT_NET
+    match on $int_if to $int_if:network   tag INT_NET
+
+    # Block traffic arriving from invalid source addresses
+    block drop log quick on { $ext_if, $int_if } inet  from <ipv4-not-valid-source>
+    block drop log quick on { $ext_if, $int_if } inet6 from <ipv6-not-valid-source>
+
+    # Block traffic going to invalid destination addresses
+    block drop log quick on { $ext_if, $int_if } inet  to <ipv4-not-valid-destination>
+    block drop log quick on { $ext_if, $int_if } inet6 to <ipv6-not-valid-destination>
+
+    # Block non-forwardable traffic passing firewall (excluding own addresses)
+    block drop log quick on $ext_if inet  from ! $ext_if to <ipv4-not-forwardable>
+    block drop log quick on $ext_if inet6 from ! $ext_if to <ipv6-not-forwardable>
+    block drop log quick on $int_if inet  from ! $int_if to <ipv4-not-forwardable> ! tagged INT_NET
+    block drop log quick on $int_if inet6 from ! $int_if to <ipv6-not-forwardable> ! tagged INT_NET

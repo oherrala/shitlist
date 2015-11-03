@@ -1,0 +1,17 @@
+
+# Sources:
+#   [1]: https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml
+
+::/128              # [1] Unspecified Address - https://tools.ietf.org/html/rfc4291
+::1/128             # [1] Loopback Address - https://tools.ietf.org/html/rfc4291
+::ffff:0:0/96       # [1] IPv4-mapped Address - https://tools.ietf.org/html/rfc4291
+100::/64            # [1] Discard-Only Address Block - https://tools.ietf.org/html/rfc6666
+2001::/23           # [1] IETF Protocol Assignments - https://tools.ietf.org/html/rfc2928
+2001::/32           # [1] TEREDO - https://tools.ietf.org/html/rfc4380
+2001:2::/48         # [1] Benchmarking - https://tools.ietf.org/html/rfc5180
+2001:10::/28        # [1] Deprecated (previously ORCHID) - https://tools.ietf.org/html/rfc4843
+2001:db8::/32       # [1] Documentation - https://tools.ietf.org/html/rfc3849
+fc00::/7            # [1] Unique-Local - https://tools.ietf.org/html/rfc4193
+fe80::/10           # [1] Linked-Scoped Unicast - https://tools.ietf.org/html/rfc4291
+
+#                   # comments indended to column 20
